@@ -1,95 +1,93 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Скидка 10%</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brand Hand — Скидка 20%</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to bottom, #000000, #1a1a1a);
+      font-family: 'Montserrat', sans-serif;
       color: gold;
+      background: linear-gradient(-45deg, #000000, #1a1a1a, #000000, #1a1a1a);
+      background-size: 400% 400%;
+      animation: gradientBG 10s ease infinite;
       display: flex;
       flex-direction: column;
-      align-items: center;
       justify-content: center;
+      align-items: center;
       height: 100vh;
       text-align: center;
     }
 
+    @keyframes gradientBG {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+
     h1 {
-      font-size: 2.5rem;
-      margin-bottom: 0.5rem;
+      font-size: 3em;
+      margin-bottom: 0.3em;
     }
 
-    p {
-      font-size: 1.2rem;
-      margin-bottom: 1.5rem;
-    }
-
-    input[type="password"] {
-      padding: 10px;
-      font-size: 1rem;
-      border: none;
-      border-radius: 8px;
-      margin-bottom: 1rem;
-      background: #333;
+    .city {
+      font-size: 1.5em;
+      margin-bottom: 1em;
       color: white;
     }
 
+    .code-box {
+      background: rgba(255, 215, 0, 0.1);
+      border: 2px dashed gold;
+      padding: 20px;
+      font-size: 2em;
+      margin-bottom: 20px;
+      border-radius: 12px;
+      width: 300px;
+    }
+
+    input {
+      padding: 10px;
+      font-size: 1em;
+      border: none;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      width: 250px;
+    }
+
     button {
-      padding: 12px 24px;
-      font-size: 1rem;
       background-color: gold;
       color: black;
+      font-weight: bold;
+      padding: 10px 20px;
+      font-size: 1em;
       border: none;
-      border-radius: 10px;
+      border-radius: 8px;
       cursor: pointer;
-      transition: 0.3s ease;
     }
 
-    button:hover {
-      background-color: #ffcc00;
-    }
-
-    #codeContainer {
-      display: none;
-      margin-top: 20px;
-      font-size: 2rem;
-    }
-
-    #usedMessage {
+    .used {
       color: red;
       margin-top: 20px;
-      font-size: 1.2rem;
-      display: none;
-    }
-
-    .fade-in {
-      animation: fadeIn 1s ease forwards;
-    }
-
-    @keyframes fadeIn {
-      0% { opacity: 0; transform: scale(0.9); }
-      100% { opacity: 1; transform: scale(1); }
+      font-size: 1.2em;
     }
   </style>
 </head>
 <body>
-  <h1>Ваш персональный код</h1>
-  <p>Покажите этот экран сотруднику. Только он может ввести пароль.</p>
+  <h1>Скидка 20%</h1>
+  <div class="city">Только в Казани — Brand Hand</div>
+  <div class="code-box" id="promoCode">••••••••••</div>
 
-  <input type="password" id="password" placeholder="Введите пароль сотрудника" />
-  <button onclick="checkPassword()">Показать код</button>
+  <input type="password" id="password" placeholder="Пароль для персонала">
+  <button onclick="checkPassword()">Показать/Отметить</button>
 
-  <div id="codeContainer" class="fade-in">
-    🎁 <strong id="promoCode"></strong><br/>
-    <button onclick="markUsed()">ИСПОЛЬЗОВАНО</button>
+  <div class="used" id="usedMessage" style="display:none;">Этот код уже использован.</div>
+  <div id="codeContainer" style="display:none; margin-top:10px;">
+    <button onclick="markUsed()">Отметить как использованный</button>
   </div>
-
-  <div id="usedMessage">❌ Этот код уже использован.</div>
-
+  
   <script src="script.js"></script>
 </body>
 </html>
