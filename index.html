@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
@@ -25,22 +25,13 @@
     }
 
     .logo {
-      font-size: 4em;
+      font-size: 3.5em;
       font-weight: 700;
       color: gold;
       text-shadow: 0 0 10px gold, 0 0 20px #ffd700;
-      margin-bottom: 10px;
+      margin-bottom: 5px;
       animation: logoGlow 3s infinite alternate ease-in-out;
     }
-    
-  .brand-name {
-  display: block;
-  font-size: 2em;
-  font-weight: bold;
-  color: gold;
-  margin-top: 0.3em;
-  animation: fadeInDown 2s ease-out;
-  }
 
     @keyframes logoGlow {
       from {
@@ -61,8 +52,18 @@
 
     .city {
       font-size: 1.8em;
-      margin-bottom: 1em;
+      margin-bottom: 0.5em;
       color: white;
+      animation: fadeInDown 1.5s ease-out;
+    }
+
+    .instruction {
+      font-size: 1.1em;
+      color: #ffcc00;
+      margin-bottom: 20px;
+      padding: 0 20px;
+      max-width: 400px;
+      line-height: 1.4;
       animation: fadeInDown 1.5s ease-out;
     }
 
@@ -122,17 +123,19 @@
 </head>
 <body>
 
-  <div class="logo">BH</div>
+  <div class="logo">Brand Hand</div>
 
   <h1>Скидка 20%</h1>
-  <div class="city">
-  Только в Казани<br>
-  <span class="brand-name">Brand Hand</span>
-</div>
+  <div class="city">Только в Казани</div>
+
+  <div class="instruction">
+    ⚠️ Пожалуйста, не нажимайте кнопку "Отметить как использованный", пока не покажете этот код сотруднику кассы.
+  </div>
 
   <div class="code-box" id="promoCode">••••••••••</div>
 
   <div class="used" id="usedMessage" style="display:none;">Этот код уже использован.</div>
+
   <div id="codeContainer" style="margin-top:10px;">
     <button onclick="markUsed()">Отметить как использованный</button>
   </div>
