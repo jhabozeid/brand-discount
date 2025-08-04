@@ -24,6 +24,26 @@
       overflow: hidden;
     }
 
+    .logo {
+      font-size: 4em;
+      font-weight: 700;
+      color: gold;
+      text-shadow: 0 0 10px gold, 0 0 20px #ffd700;
+      margin-bottom: 10px;
+      animation: logoGlow 3s infinite alternate ease-in-out;
+    }
+
+    @keyframes logoGlow {
+      from {
+        text-shadow: 0 0 5px gold, 0 0 10px #ffd700;
+        transform: scale(1);
+      }
+      to {
+        text-shadow: 0 0 15px gold, 0 0 30px #ffcc00;
+        transform: scale(1.05);
+      }
+    }
+
     h1 {
       font-size: 3.5em;
       margin-bottom: 0.3em;
@@ -92,6 +112,9 @@
   </style>
 </head>
 <body>
+
+  <div class="logo">BH</div>
+
   <h1>Скидка 20%</h1>
   <div class="city">Только в Казани — Brand Hand</div>
   <div class="code-box" id="promoCode">••••••••••</div>
