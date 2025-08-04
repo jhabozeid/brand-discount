@@ -1,42 +1,44 @@
+// script.js
 
-    const staffPassword = "brndhnd052";
+// Staff password to unlock the discount
+const staffPassword = "brndhnd052";
 
-    const urlParts = window.location.pathname.split("/");
+// Get code from URL path
+const urlParts = window.location.pathname.split("/");
 let code = urlParts[urlParts.length - 1].toUpperCase();
 
-// Fallback to default code if nothing is in the URL
+// Fallback if no code is present
 if (!code || code === "") {
-  code = "TESTCODE123";
+  code = generateRandomCode(); // Generate a new code if not provided
 }
 
-document.getElementById("promoCode").innerText = code;
+const promoCodeEl = document.getElementById("promoCode");
+promoCodeEl.innerText = code;
 
+// Check if code is used
+const usedKey = `brandhand_used_${code}`;
+const isUsed = localStorage.getItem(usedKey);
 
-    const usedKey = `brandhand_used_${code}`;
-    const isUsed = localStorage.getItem(usedKey);
+if (isUsed === "true") {
+  promoCodeEl.innerText = "Код использован";
+  document.getElementById("usedMessage").style.display = "block";
+  document.getElementById("codeContainer").style.display = "none";
+}
 
-    if (isUsed === "true") {
-      document.getElementById("usedMessage").style.display = "block";
-      document.getElementById("codeContainer").style.display = "none";
-    }
+// When staff clicks to confirm the code was used
+function markUsed() {
+  localStorage.setItem(usedKey, "true");
+  promoCodeEl.innerText = "Код использован";
+  document.getElementById("usedMessage").style.display = "block";
+  document.getElementById("codeContainer").style.display = "none";
+}
 
-    function checkPassword() {
-      const input = document.getElementById("password").value;
-      if (input === staffPassword) {
-        if (isUsed === "true") {
-          document.getElementById("usedMessage").style.display = "block";
-        } else {
-          document.getElementById("codeContainer").style.display = "block";
-        }
-      } else {
-        alert("Неверный пароль");
-      }
-    }
-
-    function markUsed() {
-      localStorage.setItem(usedKey, "true");
-      document.getElementById("promoCode").innerText = "Код использован";
-      document.getElementById("usedMessage").style.display = "block";
-      document.getElementById("codeContainer").style.display = "none";
-    }
-  
+// Utility function to generate a random promo code
+function generateRandomCode(length = 8) {
+  const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+  let result = "";
+  for (let i = 0; i < length; i++) {
+    result += chars[Math.floor(Math.random() * chars.length)];
+  }
+  return result;
+}
