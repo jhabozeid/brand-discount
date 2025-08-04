@@ -2,10 +2,15 @@
     const staffPassword = "brndhnd052";
 
     const urlParts = window.location.pathname.split("/");
-    const code = urlParts[urlParts.length - 1]
-  ? urlParts[urlParts.length - 1].toUpperCase()
-  : "TESTCODE";
-    document.getElementById("promoCode").innerText = code;
+let code = urlParts[urlParts.length - 1].toUpperCase();
+
+// Fallback to default code if nothing is in the URL
+if (!code || code === "") {
+  code = "TESTCODE123";
+}
+
+document.getElementById("promoCode").innerText = code;
+
 
     const usedKey = `brandhand_used_${code}`;
     const isUsed = localStorage.getItem(usedKey);
