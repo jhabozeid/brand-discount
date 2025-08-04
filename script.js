@@ -1,44 +1,42 @@
-// script.js
-
-// Staff password to unlock the discount
-const staffPassword = "brndhnd052";
-
-// Get code from URL path
-const urlParts = window.location.pathname.split("/");
-let code = urlParts[urlParts.length - 1].toUpperCase();
-
-// Fallback if no code is present
-if (!code || code === "") {
-  code = generateRandomCode(); // Generate a new code if not provided
-}
-
-const promoCodeEl = document.getElementById("promoCode");
-promoCodeEl.innerText = code;
-
-// Check if code is used
-const usedKey = `brandhand_used_${code}`;
-const isUsed = localStorage.getItem(usedKey);
-
-if (isUsed === "true") {
-  promoCodeEl.innerText = "Код использован";
-  document.getElementById("usedMessage").style.display = "block";
-  document.getElementById("codeContainer").style.display = "none";
-}
-
-// When staff clicks to confirm the code was used
-function markUsed() {
-  localStorage.setItem(usedKey, "true");
-  promoCodeEl.innerText = "Код использован";
-  document.getElementById("usedMessage").style.display = "block";
-  document.getElementById("codeContainer").style.display = "none";
-}
-
-// Utility function to generate a random promo code
-function generateRandomCode(length = 8) {
-  const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-  let result = "";
+function generateRandomCode(length = 10) {
+  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  let code = "";
   for (let i = 0; i < length; i++) {
-    result += chars[Math.floor(Math.random() * chars.length)];
+    code += chars.charAt(Math.floor(Math.random() * chars.length));
   }
-  return result;
+  return code;
+}
+
+// Try to load saved code from localStorage
+let savedCode = localStorage.getItem("brandhand_discount_code");
+const promoCodeEl = document.getElementById("promoCode");
+const usedMessageEl = document.getElementById("usedMessage");
+const codeContainerEl = document.getElementById("codeContainer");
+
+if (savedCode) {
+  const usedKey = `brandhand_used_${savedCode}`;
+  const isUsed = localStorage.getItem(usedKey);
+
+  if (isUsed === "true") {
+    promoCodeEl.innerText = "Код использован";
+    usedMessageEl.style.display = "block";
+    codeContainerEl.style.display = "none";
+  } else {
+    promoCodeEl.innerText = savedCode;
+  }
+} else {
+  // No code saved yet, generate a new one
+  const newCode = generateRandomCode();
+  localStorage.setItem("brandhand_discount_code", newCode);
+  promoCodeEl.innerText = newCode;
+}
+
+function markUsed() {
+  const code = localStorage.getItem("brandhand_discount_code");
+  if (code) {
+    localStorage.setItem(`brandhand_used_${code}`, "true");
+    promoCodeEl.innerText = "Код использован";
+    usedMessageEl.style.display = "block";
+    codeContainerEl.style.display = "none";
+  }
 }
